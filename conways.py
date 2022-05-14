@@ -1,155 +1,54 @@
+## ---------------------------------------------------------------------------
+## conways.py : Conways game of life in python with numba and numpy (22.93)
+## ---------------------------------------------------------------------------
+
 import numpy as np
-import matplotlib.pyplot as plt
 import argparse
 from numba import jit
-import multiprocessing
-from functools import partial
-from tqdm import tqdm
 import time
-
-def init_world(mode,rows,cols,type):
-	if mode == 0:
-		if type == 'glider':
-			world = np.zeros((rows,cols))
-			world[2][1] = 1
-			world[3][2] = 1
-			world[1][3] = 1
-			world[2][3] = 1
-			world[3][3] = 1
-		if type == 'glider_gun':
-			world = np.zeros((rows,cols))
-			world[5][1] = 1
-			world[6][1] = 1
-			world[5][2] = 1
-			world[6][2] = 1
-			world[5][11] = 1
-			world[6][11] = 1
-			world[7][11] = 1
-			world[4][12] = 1
-			world[8][12] = 1
-			world[3][13] = 1
-			world[9][13] = 1
-			world[3][14] = 1
-			world[9][14] = 1
-			world[6][15] = 1
-			world[4][16] = 1
-			world[8][16] = 1
-			world[5][17] = 1
-			world[6][17] = 1
-			world[7][17] = 1
-			world[6][18] = 1
-			world[3][21] = 1
-			world[4][21] = 1
-			world[5][21] = 1
-			world[3][22] = 1
-			world[4][22] = 1
-			world[5][22] = 1
-			world[2][23] = 1
-			world[6][23] = 1
-			world[1][25] = 1
-			world[2][25] = 1
-			world[6][25] = 1
-			world[7][25] = 1
-			world[3][35] = 1
-			world[4][35] = 1
-			world[3][36] = 1
-			world[4][36] = 1
-		if type == 'grow':
-			world = np.zeros((rows,cols))
-			world[1+rows//2][1+cols//2] = 1
-			world[2+rows//2][1+cols//2] = 1
-			world[5+rows//2][1+cols//2] = 1
-			world[1+rows//2][2+cols//2] = 1
-			world[4+rows//2][2+cols//2] = 1
-			world[1+rows//2][3+cols//2] = 1
-			world[4+rows//2][3+cols//2] = 1
-			world[5+rows//2][3+cols//2] = 1
-			world[3+rows//2][4+cols//2] = 1
-			world[1+rows//2][5+cols//2] = 1
-			world[3+rows//2][5+cols//2] = 1
-			world[4+rows//2][5+cols//2] = 1
-			world[5+rows//2][5+cols//2] = 1
-
-	elif mode == 1:
-		world = np.random.randint(0,2,(rows,cols))
-	return world
 
 @jit(nopython=True)
 def update_world(world):
+
 	old_world = np.copy(world)
 	shape = np.shape(world)
 	rows = shape[0]
-	cols = shape[1] 
+	cols = shape[1]
+
 	for i in range(rows):
 		for j in range(cols):
 			state = old_world[i][j]
-			neis = old_world[i%rows][(j+1)%cols]+old_world[i%rows][(j-1)%cols]\
-				  +old_world[(i+1)%rows][j%cols]+old_world[(i-1)%rows][j%cols]\
-				  +old_world[(i+1)%rows][(j+1)%cols]+old_world[(i-1)%rows][(j-1)%cols]\
-				  +old_world[(i+1)%rows][(j-1)%cols]+old_world[(i-1)%rows][(j+1)%cols]
+			neis = old_world[i%rows][(j+1)%cols]\
+				  +old_world[i%rows][(j-1)%cols]\
+				  +old_world[(i+1)%rows][j%cols]\
+				  +old_world[(i-1)%rows][j%cols]\
+				  +old_world[(i+1)%rows][(j+1)%cols]\
+				  +old_world[(i-1)%rows][(j-1)%cols]\
+				  +old_world[(i+1)%rows][(j-1)%cols]\
+				  +old_world[(i-1)%rows][(j+1)%cols]		# Check neighbors
 
-			if state == 1:
+			if state == 1:									# Kill if alive and nei !2 or !3
 				if neis not in (2,3):
 					world[i][j] = 0
 			else:
-				if neis == 3:
+				if neis == 3:								# Alive if death and nei 3
 					world[i][j] = 1
-
-def plot_world(min_frame,max_frame,rows,cols):
-	for frame in tqdm(range(min_frame,max_frame),desc='Animation',colour='Green'):
-		world = np.loadtxt(f'{frame:06d}.txt')
-
-		max_ = max(cols,rows)
-
-		if 1 <= max_ < 61:
-			size = 12
-		elif 61 <= max_ < 201:
-			size = 30
-		else:
-			size = 80
-
-		fig = plt.figure(figsize = (size,size))
-		plt.pcolormesh(world,cmap='summer',edgecolors='k', linewidth=1)
-		plt.gca().invert_yaxis()
-		plt.gca().set_aspect('equal')
-		plt.xticks([])
-		plt.yticks([])
-		plt.grid()
-		plt.title(f'Iteration #{(frame):6d}')
-		plt.savefig(f'{frame:06d}.png',bbox_inches='tight')
-		plt.close()
-
+															# otherwise stay dead or alive
 def main():
-	world = init_world(args.mode,args.r,args.c,args.type)
-	
+
+	world = np.random.randint(0,2,(args.r,args.c))			# Initialize random world
+
 	print('Started simulation')
 	start = time.time()
 	for i in range(args.f+1):
-		np.savetxt(f'{i:06d}.txt', world, fmt='%d')
+		np.savetxt(f'{i:06d}.txt', world, fmt='%d')			# Save world to a text file
 		update_world(world)
 	print(f'Finished simulation in: {time.time()-start:6.2f} seconds')
-	
-	cores = multiprocessing.cpu_count()
-	divide_conquer = int(np.ceil((args.f+1)/cores))
-	pool = multiprocessing.Pool(cores)
-	min_frames = []
-	max_frames = []
-	for i in range(cores):
-		min_frames.append(i*divide_conquer)
-		if i == cores-1:
-			max_frames.append(args.f+1)
-		else:
-			max_frames.append((i+1)*divide_conquer)
-	
-	partial_plot=partial(plot_world, rows=args.r,cols=args.c)
-	pool.starmap(partial_plot,zip(min_frames,max_frames))
 
 if __name__ == '__main__':
-	parser = argparse.ArgumentParser(description='Dynamics')
-	parser.add_argument('mode',type=int,help='mode 0  predifined, 1 random')
-	parser.add_argument('--r',default=10,type=int,help='number of rows')
-	parser.add_argument('--c',default=10,type=int,help='number of columns')
-	parser.add_argument('--f',default=100,type=int,help='number of frames')
-	parser.add_argument('--type',default='glider',type=str,help='predifined type')
+	parser = argparse.ArgumentParser(description='Game of Life')
+	parser.add_argument('r',type=int,help='number of rows')
+	parser.add_argument('c',type=int,help='number of columns')
+	parser.add_argument('f',type=int,help='number of frames')
 	args = parser.parse_args()
 	main()
