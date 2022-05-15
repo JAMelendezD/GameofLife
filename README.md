@@ -7,11 +7,6 @@
 | C#          | `./conways.exe 500 500 1000`        | 1 min 14 sec |
 | Python      | `python conways.py 500 500 1000`    | 7 min 15 sec |
 
-
-```
-python md.py ar_liq.pdb run.mdp
-```
-
 ## Random
 
 <p align="center">
