@@ -2,7 +2,7 @@
 
 | Language    | Command                            | Memory   | Time         |
 | ----------- |------------------------------------|--------- | ------------ |
-| C (O3)      | `./conways 500 500 1000`           | 5 Mb     | 13.75 sec    |
+| C (O3)      | `./conways 500 500 1000`           | 3 Mb     | 9.35 sec     |
 | Python (JIT)| `python conways.py 500 500 1000`   | 134 Mb   | 21.64 sec    |
 | C#          | `./conways.exe 500 500 1000`       | 40 Mb    | 1 min 13 sec |
 | Rust (O3)   | `./conways 500 500 1000`           | 4 Mb     | 1 min 26 sec |
