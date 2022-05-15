@@ -10,6 +10,10 @@ namespace ConwaysCS
 {
     class Conway
     {
+        public static int mod(int a, int b)
+        {
+            return (a%b+b)%b;
+        }
         public static int[,] init_world(int rows, int cols)     // Initialize random world 
         {
             int[,] world = new int[rows, cols];
@@ -39,14 +43,14 @@ namespace ConwaysCS
                 {
             
                     int state = old_world[i,j];
-                    int neis = old_world[i%rows,(j+1)%cols]        // Check neighbors
-                              +old_world[i%rows,(((j-1)%cols)+cols)%cols]
-                              +old_world[(i+1)%rows,j%cols]
-                              +old_world[(((i-1)%rows)+rows)%rows,j%cols]
-                              +old_world[(i+1)%rows,(j+1)%cols]
-                              +old_world[(((i-1)%rows)+rows)%rows,(((j-1)%cols)+cols)%cols]
-                              +old_world[(i+1)%rows,(((j-1)%cols)+cols)%cols]
-                              +old_world[(((i-1)%rows)+rows)%rows,(j+1)%cols];
+                    int neis = old_world[mod(i,rows),mod(j+1,cols)]
+                              +old_world[mod(i,rows),mod(j-1,cols)]
+                              +old_world[mod(i+1,rows),mod(j,cols)]
+                              +old_world[mod(i-1,rows),mod(j,cols)]
+                              +old_world[mod(i+1,rows),mod(j+1,cols)]
+                              +old_world[mod(i-1,rows),mod(j-1,cols)]
+                              +old_world[mod(i+1,rows),mod(j-1,cols)]
+                              +old_world[mod(i-1,rows),mod(j+1,cols)];   
                     
                     if (state == 1)                             // Kill if alive and nei !2 or !3
                     {

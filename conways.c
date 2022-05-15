@@ -1,11 +1,16 @@
 // ---------------------------------------------------------------------------------------
-// conways.c : Conways game of life in C (9.35)
+// conways.c : Conways game of life in C (19.21)
 // ---------------------------------------------------------------------------------------
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+
+int mod(int a, int b)
+{
+    return (a%b+b)%b;
+}
 
 void write_file(char name[],int rows, int cols, int world[rows][cols])
 {   
@@ -43,15 +48,15 @@ void update_world(int rows, int cols, int world[rows][cols])
     {
         for (int j=0; j<cols; j++)
         {
-            int state = old_world[i][j];                 // Check neighbors
-            int neis = old_world[i%rows][(j+1)%cols]
-                      +old_world[i%rows][(j-1)%cols]
-                      +old_world[(i+1)%rows][j%cols]
-                      +old_world[(i-1)%rows][j%cols]
-                      +old_world[(i+1)%rows][(j+1)%cols]
-                      +old_world[(i-1)%rows][(j-1)%cols]
-                      +old_world[(i+1)%rows][(j-1)%cols]
-                      +old_world[(i-1)%rows][(j+1)%cols];
+            int state = old_world[i][j];                 
+            int neis = old_world[mod(i,rows)][mod(j+1,rows)]
+                      +old_world[mod(i,rows)][mod(j-1,rows)]
+                      +old_world[mod(i+1,rows)][mod(j,rows)]
+                      +old_world[mod(i-1,rows)][mod(j,rows)]
+                      +old_world[mod(i+1,rows)][mod(j+1,rows)]
+                      +old_world[mod(i-1,rows)][mod(j-1,rows)]
+                      +old_world[mod(i+1,rows)][mod(j-1,rows)]
+                      +old_world[mod(i-1,rows)][mod(j+1,rows)];
             
             if (state == 1)                             // Kill if alive and nei !2 or !3
             {
@@ -79,8 +84,8 @@ int main (int argc, char **argv)
 
     int world[rows][cols];
     init_world(rows,cols,world);
-    clock_t start = clock();
     printf("Started simulation\n");
+    clock_t start = clock();
     for (int frame=0; frame<frames+1; frame++)
     {
         char *name = (char*)malloc(20*sizeof(char));

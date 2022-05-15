@@ -1,5 +1,5 @@
 ## ---------------------------------------------------------------------------------------
-## conways.py : Conways game of life in python (7 min 15 sec) with numba and numpy (22.93)
+## conways.py : Conways game of life in python (7 min 15 sec) with numba and numpy (22.48)
 ## ---------------------------------------------------------------------------------------
 
 import numpy as np
@@ -25,7 +25,7 @@ def update_world(world):
 				  +old_world[(i+1)%rows][(j+1)%cols]\
 				  +old_world[(i-1)%rows][(j-1)%cols]\
 				  +old_world[(i+1)%rows][(j-1)%cols]\
-				  +old_world[(i-1)%rows][(j+1)%cols]		# Check neighbors
+				  +old_world[(i-1)%rows][(j+1)%cols]		
 
 			if state == 1:									# Kill if alive and nei !2 or !3
 				if neis not in (2,3):
