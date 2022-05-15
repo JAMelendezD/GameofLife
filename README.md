@@ -10,7 +10,7 @@
 ## Random
 
 <p align="center">
-  <img width="600" src="images/random.gif">
+  <img width="1000" src="images/random.gif">
 </p>
 
 ## Glider Gun
