@@ -1,9 +1,9 @@
 # Game of Life
 
-| Syntax      | Description |
-| ----------- | ----------- |
-| Header      | Title       |
-| Paragraph   | Text        |
+| Language    | Command                              | Time |
+| ----------- |-----------                           | ----------- |
+| Header      | > python md.py ar_liq.pdb run.mdp    | Title       |
+| Paragraph   | > python md.py ar_liq.pdb run.mdp    | Text        |
 
 
 ```
