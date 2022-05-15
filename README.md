@@ -1,9 +1,11 @@
 # Game of Life
 
-| Language    | Command                              | Time |
-| ----------- |-----------                           | ----------- |
-| Header      | > python md.py ar_liq.pdb run.mdp    | Title       |
-| Paragraph   | > python md.py ar_liq.pdb run.mdp    | Text        |
+| Language    | Command                             | Time        |
+| ----------- |------------------------------------ | ----------- |
+| Python      | `python conways.py 500 500 1000`    | Title       |
+| Python      | `python conways.py 500 500 1000`    | Text        |
+| C#          | `./conways.exe 500 500 1000`        | Title       |
+| C           | `./conways 500 500 1000`            | Text        |
 
 
 ```
