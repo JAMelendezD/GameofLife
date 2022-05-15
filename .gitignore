@@ -1,3 +1,5 @@
 *.exe
 *.obj
 conways
+target/
+*.lock
