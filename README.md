@@ -1,5 +1,11 @@
 # Game of Life
 
+| Syntax      | Description |
+| ----------- | ----------- |
+| Header      | Title       |
+| Paragraph   | Text        |
+
+
 ```
 python md.py ar_liq.pdb run.mdp
 ```
