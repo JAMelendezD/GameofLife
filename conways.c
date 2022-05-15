@@ -24,6 +24,7 @@ void write_file(char name[],int rows, int cols, int world[rows][cols])
         }
         fprintf(fp, "\n");
     }
+    fclose(fp);
 }
 
 void init_world(int rows, int cols, int world[rows][cols])
@@ -81,18 +82,18 @@ int main (int argc, char **argv)
     int rows = atoi(argv[1]);
     int cols = atoi(argv[2]);
     int frames = atoi(argv[3]);
+    char *name = (char*)malloc(100*sizeof(char));
 
-    int world[rows][cols];
+    int world[rows][cols]; // It is being allocated in the stack limits size significantly
     init_world(rows,cols,world);
     printf("Started simulation\n");
     clock_t start = clock();
     for (int frame=0; frame<frames+1; frame++)
     {
-        char *name = (char*)malloc(20*sizeof(char));
         sprintf(name, "%06d.txt", frame);
         write_file(name,rows,cols,world);
-        update_world(rows,cols,world);
-        free(name);  
+        update_world(rows,cols,world);  
     }
     printf("Finished simulation in: %6.2f seconds\n",((double)clock()-start)/CLOCKS_PER_SEC);
+    free(name);
 } 

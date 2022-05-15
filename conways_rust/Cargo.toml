@@ -7,6 +7,9 @@ authors = ["Julian Melendez"]
 rand = "0.8.5"
 array2d = "0.2.1"
 
+[profile.release]
+opt-level = 3
+
 [[bin]]
 name = "conways"
 path = "src/conways.rc"

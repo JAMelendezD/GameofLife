@@ -9,18 +9,19 @@ use rand::Rng;
 use std::env;
 use array2d::Array2D;
 use std::fs::File;
-use std::io::Write;
+use std::io::{BufWriter, Write};
 use std::time::*;
 
 fn write_file(name:&String,rows:usize,cols:usize,world: &mut Array2D<i32>)
 {
-    let mut f = File::create(name).expect("Unable to write data");
+    let f = File::create(name).expect("Unable to create file");
+    let mut f = BufWriter::new(f);
     for i in 0..rows
     {
         for j in 0..cols
         {
             let to_write = format!("{} ",  world[(i,j)]);
-            f.write_all(to_write.as_bytes()).expect("Unable to write data");
+            f.write(to_write.as_bytes()).expect("Unable to write data");
         }
         let to_write = format!("{}",  "\n");
         f.write_all(to_write.as_bytes()).expect("Unable to write data");
