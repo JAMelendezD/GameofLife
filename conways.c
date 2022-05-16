@@ -1,6 +1,6 @@
-// ------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // conways.c : Conways game of life in C (9.35)
-// ------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -39,8 +39,8 @@ void update_world(int rows, int cols, int world[rows][cols]) {
     int old_world[rows][cols];
     memcpy(old_world, world, sizeof (int) * rows * cols);
     
-    for (int i=0; i<rows; ++i){
-        for (int j=0; j<cols; j++){
+    for (int i=0; i<rows; ++i) {
+        for (int j=0; j<cols; j++) {
             int state = old_world[i][j];                 
             int neis = old_world[mod(i, rows)][mod(j + 1, rows)]
                       +old_world[mod(i, rows)][mod(j - 1, rows)]
@@ -65,23 +65,24 @@ void update_world(int rows, int cols, int world[rows][cols]) {
     }
 }
 
-int main (int argc, char **argv)
-{
+int main (int argc, char **argv) {
+    
     int rows = atoi(argv[1]);
     int cols = atoi(argv[2]);
     int frames = atoi(argv[3]);
     char *name = (char*)malloc(100 * sizeof(char));
 
-    int world[rows][cols]; // It is being allocated in the stack limits size significantly
+    int world[rows][cols];
     init_world(rows,cols,world);
+    
     printf("Started simulation\n");
     clock_t start = clock();
-    for (int frame = 0; frame < frames + 1; frame++)
-    {
+    for (int frame = 0; frame < frames + 1; frame++) {
         sprintf(name, "%06d.txt", frame);
         write_file(name, rows, cols, world);
         update_world(rows, cols, world);  
     }
-    printf("Finished simulation in: %6.2f seconds\n",((double)clock() - start)/CLOCKS_PER_SEC);
+    printf("Finished simulation in: %6.2f seconds\n",
+            ((double)clock() - start)/CLOCKS_PER_SEC);
     free(name);
 } 
