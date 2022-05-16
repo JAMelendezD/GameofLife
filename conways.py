@@ -1,6 +1,6 @@
-## ---------------------------------------------------------------------------------------
-## conways.py : Conways game of life in python (7 min 15 sec) with numba and numpy (22.48)
-## ---------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
+# conways.py : Conways game of life in python (7 min 15 sec) with numba and numpy (19.76)
+# ---------------------------------------------------------------------------------------
 
 import numpy as np
 import argparse
@@ -28,7 +28,7 @@ def update_world(world):
 				  +old_world[(i-1)%rows][(j+1)%cols]		
 
 			if state == 1:									# Kill if alive and nei !2 or !3
-				if neis not in (2,3):
+				if (neis != 2) and neis != 3:
 					world[i][j] = 0
 			else:
 				if neis == 3:								# Alive if death and nei 3
