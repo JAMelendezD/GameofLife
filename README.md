@@ -7,7 +7,7 @@
 | C#          | `./conways.exe 500 500 1000`       | 40 Mb    | 1 min 13 sec |
 | Rust (O3)   | `./conways 500 500 1000`           | 4 Mb     | 1 min 26 sec |
 | Python      | `python conways.py 500 500 1000`   | 85 Mb    | 7 min 15 sec |
-| R           | `Rscript conways.r 500 500 1000`   | 86 Mb    | 16 min 11 sec |
+| R           | `Rscript conways.r 500 500 1000`   | 86 Mb    | 16 min 11 sec|
 
 ## Random
 
