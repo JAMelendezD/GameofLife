@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------------------
-# conways.py : Conways game of life in python (7 min 15 sec) with numba and numpy (19.76)
+# conways.py : Conways game of life in python (7 min 50 sec) with numba and numpy (19.76)
 # ---------------------------------------------------------------------------------------
 
 import numpy as np
