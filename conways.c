@@ -8,7 +8,7 @@
 #include <string.h>
 
 int mod(int a, int b) {
-    return (a % b + b) % b;
+    return ((a % b) + b) % b;
 }
 
 void write_file(char name[], int rows, int cols, int world[rows][cols]) {   
@@ -73,8 +73,13 @@ int main (int argc, char **argv) {
     char *name = (char*)malloc(100 * sizeof(char));
 
     int world[rows][cols];
-    init_world(rows,cols,world);
     
+    //int **world = malloc(sizeof*world*rows);
+    //for (int i = 0; i < rows;i++)
+        //world[i] = malloc(sizeof**world*cols);
+
+    init_world(rows, cols, world);
+
     printf("Started simulation\n");
     clock_t start = clock();
     for (int frame = 0; frame < frames + 1; frame++) {
@@ -85,4 +90,5 @@ int main (int argc, char **argv) {
     printf("Finished simulation in: %6.2f seconds\n",
             ((double)clock() - start)/CLOCKS_PER_SEC);
     free(name);
+    
 } 
