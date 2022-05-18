@@ -12,4 +12,4 @@ opt-level = 3
 
 [[bin]]
 name = "conways"
-path = "src/conways.rc"
+path = "src/conways.rs"
