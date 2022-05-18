@@ -5,7 +5,7 @@
 | C (O3)      | `./conways 500 500 1000`           | 3 Mb     |  88   |   2642     | 9.35 sec     |
 | Java        | `java Conways 500 500 1000`        | 281 Mb   | 101   |   3309     | 13.88 sec    |
 | Python (JIT)| `python conways.py 500 500 1000`   | 131 Mb   |  54   |   1627     | 19.76 sec    |
-| Fortran (O2)| `./conways 500 500 1000`           | 131 Mb   | 100   |   2864     | 39.83 sec    |
+| Fortran (O2)| `./conways 500 500 1000`           | 4 Mb     | 100   |   2864     | 39.83 sec    |
 | JavaScript  | `node conways.js 500 500 1000`     | 120 Mb   |  80   |   2311     | 46.46 sec    |
 | C#          | `./conways.exe 500 500 1000`       | 40 Mb    |  96   |   3514     | 1 min 13 sec |
 | Rust (O3)   | `./conways 500 500 1000`           | 4 Mb     |  86   |   2934     | 1 min 26 sec |
