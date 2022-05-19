@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// conways.rc : Conways game of life in Rust (1 min 26 sec)
+// conways.rc : Conways game of life in Rust (12.06 sec)
 // -----------------------------------------------------------------------------
 
 extern crate rand;
@@ -73,7 +73,7 @@ fn main() {
     let world = &mut Array2D::filled_with(0, rows, cols);
     init_world(rows, cols, world);
 
-    print!("Started simulation\n");
+    println!("Started simulation");
     let now = Instant::now();
     for frame in 0..frames + 1
     {
@@ -82,5 +82,6 @@ fn main() {
         update_world(rows, cols, world);
     }
     let elapsed_time = now.elapsed();
-    print!("Finished simulation in: {:6.2} seconds\n", elapsed_time.as_secs());
+    println!("Finished simulation in: {:6.2} seconds", 
+    elapsed_time.as_millis() as f32/1000.0);
 }
