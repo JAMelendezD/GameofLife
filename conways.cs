@@ -8,9 +8,11 @@ using System.Collections.Generic;
 
 namespace ConwaysCS {
     class Conway {
+        
         public static int mod(int a, int b) {
             return (a % b + b) % b;
         }
+
         public static int[,] init_world(int rows, int cols) {
             
             int[,] world = new int[rows, cols];
@@ -69,7 +71,6 @@ namespace ConwaysCS {
                     }
                     sw.Write("\n");
                 }
-                sw.Flush();
                 sw.Close();
             }
         }

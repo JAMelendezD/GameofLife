@@ -8,13 +8,10 @@ from numba import jit
 import time
 
 @jit(nopython = True)
-def update_world(world):
+def update_world(rows, cols, world):
 
 	old_world = np.copy(world)
-	shape = np.shape(world)
-	rows = shape[0]
-	cols = shape[1]
-
+	
 	for i in range(rows):
 		for j in range(cols):
 			state = old_world[i][j]
@@ -36,13 +33,16 @@ def update_world(world):
 
 def main():
 
-	world = np.random.randint(0, 2, (args.r, args.c))
+	rows = args.r
+	cols = args.c
+	frames = args.f
+	world = np.random.randint(0, 2, (rows, cols))
 
 	print('Started simulation')
 	start = time.time()
-	for i in range(args.f + 1):
+	for i in range(frames + 1):
 		np.savetxt(f'{i:06d}.txt', world, fmt='%d')
-		update_world(world)
+		update_world(rows, cols, world)
 	print(f'Finished simulation in: {time.time() - start:6.2f} seconds')
 
 if __name__ == '__main__':

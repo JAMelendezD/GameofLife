@@ -2,11 +2,8 @@
 # conways.cs : Conways game of life in R (16 min 11 sec)
 # ------------------------------------------------------------------------------
 
-update_world <- function(world) {
+update_world <- function(rows, cols, world) {
 
-    shape <- dim(world)
-    rows <- shape[1]
-    cols <- shape[2]
     old_world <- cbind(world)
 
     for (i in  1:rows) {
@@ -42,15 +39,13 @@ main <- function() {
     rows <- strtoi(args[1])
     cols <- strtoi(args[2])
     frames <- strtoi(args[3])
-
     world <- round(matrix(runif(rows * cols), rows, cols))
 
     print("Started simulation")
     start_time <- Sys.time()
     for (frame in 0:frames) {
-        name <- sprintf("%06d.txt", frame)
-        write(world, file = name, ncolumns = cols)
-        world <- update_world(world)
+        write(world, file = sprintf("%06d.txt", frame), ncolumns = cols)
+        world <- update_world(rows, cols, world)
     }
     td <- difftime(Sys.time(), start_time, units = "secs")
     sprintf("Finished simulation in: %6.2f seconds", td)

@@ -15,6 +15,7 @@ void write_file(char name[], int rows, int cols, int *world) {
     
     FILE *fp;
     fp = fopen(name, "w+");
+    
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; j++) {
             fprintf(fp, "%d ", *(world + i * cols + j));
@@ -27,8 +28,8 @@ void write_file(char name[], int rows, int cols, int *world) {
 int * init_world(int rows, int cols) {    
     
     int *world = (int *)malloc(rows * cols * sizeof(int)); 
-
     srand(time(0));
+
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; j++) {
             *(world + i * cols + j) = rand() % 2;
@@ -76,7 +77,6 @@ int main (int argc, char **argv) {
     int frames = atoi(argv[3]);
     char *name = (char*)malloc(100 * sizeof(char));
     int *world;
-    
     world = init_world(rows, cols);
 
     printf("Started simulation\n");
