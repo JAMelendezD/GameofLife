@@ -83,7 +83,7 @@ int main (int argc, char **argv) {
     clock_t start = clock();
     for (int frame = 0; frame < frames + 1; frame++) {
         sprintf(name, "%06d.txt", frame);
-        write_file(name, rows, cols, world);
+        //write_file(name, rows, cols, world);
         update_world(rows, cols, world);  
     }
     printf("Finished simulation in: %6.2f seconds\n",

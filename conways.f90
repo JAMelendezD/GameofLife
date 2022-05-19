@@ -6,15 +6,11 @@ module tools
   implicit none
   contains
 
-  subroutine update_file(world)
+  subroutine update_world(rows, cols, world)
+
     integer, intent (inout) :: world(:, :)
     integer, allocatable :: old_world(:, :)
-    character(len=1024) :: name
-    integer :: rows, cols
-    integer :: i, j, state, neis
-    rows = size(world, 1)
-    cols = size(world, 2)
-
+    integer :: i, j, state, neis, rows, cols
     old_world = world
   
     do i = 1, rows
@@ -41,17 +37,16 @@ module tools
       end do
     end do
     deallocate(old_world)
-  end subroutine update_file
+  end subroutine update_world
 
-  subroutine write_file(name, world)
-    integer :: world(:,:)
+  subroutine write_file(name, rows, cols, world)
+
+    integer, intent(in) :: world(:,:)
     character(len=1024) :: name
     integer :: rows, cols
     integer :: i, j
-    rows = size(world, 1)
-    cols = size(world, 2)
     
-    open (unit = 999, file = name, status = 'new')
+    open (unit = 999, file = name)
     do i = 1, rows
       do j = 1, cols
         write(999, '(A, I1)', advance = 'no') ' ', world(i,j)
@@ -65,21 +60,18 @@ end module tools
 program main
   use tools
 
-  integer :: i, j, frame
-  integer :: rows, cols, frames
+  integer :: rows, cols, frame, frames
   character(12) :: arg1, arg2, arg3
   real :: startTime, stopTime
   character(len=1024) :: name
   real, allocatable :: tmp_arr(:, :)
   integer, allocatable :: world(:, :)
-
   call get_command_argument(1, arg1)
   call get_command_argument(2, arg2)
   call get_command_argument(3, arg3)
   read(arg1, *)rows
   read(arg2, *)cols
   read(arg3, *)frames
-
   allocate(tmp_arr(rows, cols))
   allocate(world(rows, cols))
   call random_number(tmp_arr)
@@ -88,10 +80,10 @@ program main
   
   write(*, '(A)') 'Started simulation'
   call cpu_time(startTime)
-  do frame = 0, frames
+  do frame = 1, frames
     write(name, '(I0.6, A)') frame, '.txt'
-    call write_file(name, world)
-    call update_file(world)
+    call write_file(name, rows, cols, world)
+    call update_world(rows, cols, world)
   end do
   call cpu_time(stopTime)
   write(*, '(A, F6.2, A)') 'Finished simulation in: ', &  
