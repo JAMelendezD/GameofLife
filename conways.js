@@ -50,7 +50,8 @@ function update_world(world) {
                 }
             }
         }
-    } 
+    }
+    old_world = null; 
 }
 
 function main() {
