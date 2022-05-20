@@ -39,22 +39,20 @@ module tools
     deallocate(old_world)
   end subroutine update_world
 
-  subroutine write_file(name, rows, cols, world)
+  subroutine write_file(name,cols, world)
 
     integer, intent(in) :: world(:,:)
     character(len=1024) :: name
-    integer :: rows, cols
-    integer :: i, j
+    character(len=1024) :: to_fmt
+    integer :: cols
     
+    write(to_fmt, '(A, I0, A)') '(', cols, 'I2)'
+
     open (unit = 999, file = name)
-    do i = 1, rows
-      do j = 1, cols
-        write(999, '(A, I1)', advance = 'no') ' ', world(i,j)
-      end do
-      write(999, '(A)')
-    end do
+    write(999, to_fmt, advance = 'yes') world
     close(999) 
   end subroutine write_file
+
 end module tools
 
 program main
@@ -84,9 +82,9 @@ program main
   
   write(*, '(A)') 'Started simulation'
   call cpu_time(startTime)
-  do frame = 1, frames
+  do frame = 0, frames
     write(name, '(I0.6, A)') frame, '.txt'
-    call write_file(name, rows, cols, world)
+    call write_file(name, cols, world)
     call update_world(rows, cols, world)
   end do
   call cpu_time(stopTime)
