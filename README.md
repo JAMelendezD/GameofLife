@@ -15,7 +15,7 @@
 ## Scalability
 
 <p align="center">
-  <img width="500" src="images/programs.png">
+  <img width="700" src="images/programs.png">
 </p>
 
 ## Random
