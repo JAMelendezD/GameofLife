@@ -4,10 +4,10 @@
 
 import numpy as np
 import argparse
-from numba import jit
+#from numba import jit
 import time
 
-@jit(nopython = True)
+#@jit(nopython = True)
 def update_world(rows, cols, world):
 
 	old_world = np.copy(world)

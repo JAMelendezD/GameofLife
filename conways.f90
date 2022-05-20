@@ -66,14 +66,18 @@ program main
   character(len=1024) :: name
   real, allocatable :: tmp_arr(:, :)
   integer, allocatable :: world(:, :)
+
   call get_command_argument(1, arg1)
   call get_command_argument(2, arg2)
   call get_command_argument(3, arg3)
+
   read(arg1, *)rows
   read(arg2, *)cols
   read(arg3, *)frames
+  
   allocate(tmp_arr(rows, cols))
   allocate(world(rows, cols))
+
   call random_number(tmp_arr)
   world = floor(2 * tmp_arr)
   deallocate(tmp_arr)
