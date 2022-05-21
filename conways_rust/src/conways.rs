@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// conways.rc : Conways game of life in Rust (11.71 sec)
+// conways.rc : Conways game of life in Rust
 // -----------------------------------------------------------------------------
 
 extern crate rand;

@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// conways.go : Conways game of life in Go (5 min 11 sec)
+// conways.go : Conways game of life in Go
 // -----------------------------------------------------------------------------
 
 package main
@@ -20,9 +20,7 @@ func write_file(name string, rows int, cols int, world []int) {
 
     f, _ := os.Create(name)
     for i := 0; i < rows; i++ {
-        for j := 0; j < cols; j++ {
-            fmt.Fprintf(f, "%d ", world[i * cols + j])
-        }
+        fmt.Fprintf(f, "%d ", world[i * cols: i * cols + rows])
         fmt.Fprintf(f, "\n")
     }
 }

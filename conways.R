@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# conways.cs : Conways game of life in R (16 min 11 sec)
+# conways.cs : Conways game of life in R
 # ------------------------------------------------------------------------------
 
 update_world <- function(rows, cols, world) {
@@ -47,7 +47,7 @@ main <- function() {
     start_time <- Sys.time()
     for (frame in 1:frames) {
         world <- update_world(rows, cols, world)
-        write(world, file = sprintf("%06d.txt", frame), ncolumns = cols)
+        #write(world, file = sprintf("%06d.txt", frame), ncolumns = cols)
     }
     td <- difftime(Sys.time(), start_time, units = "secs")
     sprintf("Finished simulation in: %6.2f seconds", td)

@@ -1,5 +1,5 @@
 ! ------------------------------------------------------------------------------
-!  conways.f90 : Conways game of life in Fortran (39.83)
+!  conways.f90 : Conways game of life in Fortran
 ! ------------------------------------------------------------------------------
 
 module tools
@@ -27,11 +27,11 @@ module tools
 
         if (state == 1) then
           if (neis /= 2 .AND. neis /= 3) then
-            world(i,j) = 0
+            world(i, j) = 0
           end if
         else
           if (neis == 3) then
-            world(i,j) = 1
+            world(i, j) = 1
           end if
         end if 
       end do
@@ -61,7 +61,7 @@ program main
   integer :: rows, cols, frame, frames
   character(12) :: arg1, arg2, arg3
   real :: startTime, stopTime
-  character(len=1024) :: name
+  character(len = 1024) :: name
   real, allocatable :: tmp_arr(:, :)
   integer, allocatable :: world(:, :)
 

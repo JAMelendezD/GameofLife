@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// conways.js : Conways game of life in Java Script (46.46)
+// conways.js : Conways game of life in Java Script
 // -----------------------------------------------------------------------------
 
 function mod(a, b) {

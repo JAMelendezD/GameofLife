@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# conways.py : Conways game of life in python with numba and numpy (19.76)
+# conways.py : Conways game of life in python with numba and numpy
 # ------------------------------------------------------------------------------
 
 import numpy as np
