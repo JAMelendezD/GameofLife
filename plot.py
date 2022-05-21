@@ -13,9 +13,9 @@ N = data[:,0]
 to_plot = data[:,1:]
 
 colors = ['dodgerblue','mediumpurple','brown','red','gold','green',
-        'orange', 'purple', 'steelblue', 'grey']
+        'orange', 'purple', 'cyan', 'steelblue', 'grey']
 labels = ['C','Fortran','Rust','Java','Python*', 'Julia', 'JavaScript',
-         'C\#', 'Python', 'R']
+         'C\#', 'Go', 'Python', 'R']
 
 fig = plt.figure(figsize = (6,6))
 ax = plt.gca()
