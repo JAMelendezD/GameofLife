@@ -24,7 +24,9 @@ for i, dat in enumerate(to_plot.T):
     plt.plot(N,dat, marker = 'o', markeredgecolor = 'k', color = colors[i], 
         label = labels[i])
 plt.plot(N,N**2/10000,  marker = 'o', ls = '--', markeredgecolor = 'k', 
-        color = 'k', alpha = 0.4, label = '$\mathcal{O}$($N^2$)')
+        color = 'palegreen', alpha= 0.5, label = '$\mathcal{O}$($N^2$)')
+#plt.plot(N,N/10000,  marker = 'o', ls = '--', markeredgecolor = 'k', 
+        #color = 'white', label = '$\mathcal{O}$($N$)')
 ax.set_yscale('log')
 #ax.set_xscale('log')
 ax.set_xlabel('Grid Size ($\\times$ $10^3$)')

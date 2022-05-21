@@ -1,5 +1,8 @@
 # Game of Life
 
+The idea is to write my initial Python Game of Life implementation in other
+languages as faithful as possible to the Python code.
+
 | Language    | Command                            | Memory   | Lines | Characters | Time         |
 | ----------- | -----------------------------------| -------- | ----- | ---------- | ------------ |
 | C (O3)      | `./conways 500 500 1000`           | 3 Mb     |  92   |   2876     | 9.35 sec     |
@@ -10,6 +13,7 @@
 | Julia       | `julia conways.jl 500 500 1000`    | 131 Mb   |  56   |   1663     | 22.72 sec    |
 | JavaScript  | `node conways.js 500 500 1000`     | 120 Mb   |  80   |   2333     | 46.46 sec    |
 | C#          | `./conways.exe 500 500 1000`       | 40 Mb    |  96   |   3496     | 1 min 13 sec |
+| Go          | `python conways.py 500 500 1000`   | 85 Mb    |  52   |   1582     | 5 min 11 sec |
 | Python      | `python conways.py 500 500 1000`   | 85 Mb    |  52   |   1582     | 7 min 15 sec |
 | R           | `Rscript conways.r 500 500 1000`   | 86 Mb    |  53   |   1805     | 16 min 11 sec|
 
