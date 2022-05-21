@@ -86,12 +86,15 @@ class Conways {
         int frames = Integer.parseInt(args[2]); 
         int[][] world = init_world(rows, cols);
 
+        String name = String.format("%06d.txt", 0);
+        write_file(name, world);
+
         System.out.println("Started simulation");
         long start = System.nanoTime();
-        for (int frame = 0; frame<frames+1; frame++) {
-            String name = String.format("%06d.txt", frame);
-            write_file(name, world);
-            update_world(world);  
+        for (int frame = 1; frame < frames + 1; frame++) {
+            update_world(world);
+            name = String.format("%06d.txt", frame);
+            write_file(name, world);  
         }
         long end = System.nanoTime(); 
         double time =  ((end - start) / 1e9);

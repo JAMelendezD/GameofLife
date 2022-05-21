@@ -78,14 +78,15 @@ func main() {
     frames, _ := strconv.Atoi(os.Args[3])
     world := init_world(rows, cols)
 
+    name := fmt.Sprintf("%06d.txt", 0)
+    write_file(name, rows, cols, world)
+
     fmt.Printf("Started simulation\n")
     start := time.Now()
-    for frame := 0; frame < frames + 1; frame++ {
-        name := fmt.Sprintf("%06d.txt", frame)
-        write_file(name, rows, cols, world)
-        //fmt.Println(world)
+    for frame := 1; frame < frames + 1; frame++ {
         update_world(rows, cols, world)
-        //fmt.Println(world)
+        name = fmt.Sprintf("%06d.txt", frame)
+        write_file(name, rows, cols, world)
     }
     duration := time.Since(start)
     fmt.Printf("Finished simulation in: %6.2f seconds\n", duration.Seconds())

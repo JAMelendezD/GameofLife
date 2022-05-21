@@ -78,14 +78,18 @@ program main
 
   call random_number(tmp_arr)
   world = floor(2 * tmp_arr)
+  
+  write(name, '(I0.6, A)') 0, '.txt'
+  call write_file(name, cols, world)
+  
   deallocate(tmp_arr)
   
   write(*, '(A)') 'Started simulation'
   call cpu_time(startTime)
-  do frame = 0, frames
+  do frame = 1, frames
+    call update_world(rows, cols, world)
     write(name, '(I0.6, A)') frame, '.txt'
     call write_file(name, cols, world)
-    call update_world(rows, cols, world)
   end do
   call cpu_time(stopTime)
   write(*, '(A, F6.2, A)') 'Finished simulation in: ', &  

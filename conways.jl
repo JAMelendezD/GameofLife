@@ -42,13 +42,17 @@ function main()
     frames = parse(Int64, ARGS[3])
     world = rand(0:1, rows, cols)
 
+    open(lpad(0, 6, "0")*".txt", "w") do io
+        writedlm(io, world, ' ')
+    end
+
     println("Started simulation")
     t = @elapsed begin
-    for frame in 0:frames
-        open(lpad(frame,6,"0")*".txt", "w") do io
+    for frame in 1:frames
+        update_world(rows, cols, world)
+        open(lpad(frame, 6, "0")*".txt", "w") do io
             writedlm(io, world, ' ')
         end
-        update_world(rows, cols, world)
     end
     end
     @printf "Finished simulation in: %6.2f seconds\n" t

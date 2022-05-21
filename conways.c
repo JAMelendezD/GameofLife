@@ -43,17 +43,17 @@ void update_world(int rows, int cols, int *world) {
     int *old_world = (int *)malloc(rows * cols * sizeof(int));
     memcpy(old_world, world, sizeof (int) * rows * cols);
     
-    for (int i=0; i<rows; ++i) {
-        for (int j=0; j<cols; j++) {
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; j++) {
             int state = *(old_world + i * cols + j);                 
-            int neis = *(old_world + mod(i, rows)*cols + mod(j - 1, rows))+
-                       *(old_world + mod(i, rows)*cols + mod(j + 1, rows))+
-                       *(old_world + mod(i + 1, rows)*cols + mod(j, rows))+
-                       *(old_world + mod(i - 1, rows)*cols + mod(j, rows))+
-                       *(old_world + mod(i + 1, rows)*cols + mod(j + 1, rows))+
-                       *(old_world + mod(i - 1, rows)*cols + mod(j - 1, rows))+
-                       *(old_world + mod(i + 1, rows)*cols + mod(j - 1, rows))+
-                       *(old_world + mod(i - 1, rows)*cols + mod(j + 1, rows));
+            int neis = *(old_world + mod(i, rows) * cols + mod(j - 1, rows)) +
+                       *(old_world + mod(i, rows) * cols + mod(j + 1, rows)) +
+                       *(old_world + mod(i + 1, rows) * cols + mod(j, rows)) +
+                       *(old_world + mod(i - 1, rows)*cols + mod(j, rows)) +
+                       *(old_world + mod(i + 1, rows) * cols + mod(j + 1, rows)) +
+                       *(old_world + mod(i - 1, rows) * cols + mod(j - 1, rows)) +
+                       *(old_world + mod(i + 1, rows) * cols + mod(j - 1, rows)) +
+                       *(old_world + mod(i - 1, rows) * cols + mod(j + 1, rows));
 
             if (state == 1) {
                 if (neis != 2 && neis != 3) {
@@ -79,12 +79,15 @@ int main (int argc, char **argv) {
     int *world;
     world = init_world(rows, cols);
 
+    sprintf(name, "%06d.txt", 0);
+    write_file(name, rows, cols, world);  
+
     printf("Started simulation\n");
     clock_t start = clock();
-    for (int frame = 0; frame < frames + 1; frame++) {
+    for (int frame = 1; frame < frames + 1; frame++) {
+        update_world(rows, cols, world);
         sprintf(name, "%06d.txt", frame);
-        write_file(name, rows, cols, world);
-        update_world(rows, cols, world);  
+        write_file(name, rows, cols, world);  
     }
     printf("Finished simulation in: %6.2f seconds\n",
             ((double)clock() - start)/CLOCKS_PER_SEC);

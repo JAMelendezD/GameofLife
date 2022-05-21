@@ -37,12 +37,14 @@ def main():
 	cols = args.c
 	frames = args.f
 	world = np.random.randint(0, 2, (rows, cols))
-
+	
+	np.savetxt(f'{0:06d}.txt', world, fmt='%d')
+	
 	print('Started simulation')
 	start = time.time()
-	for i in range(frames + 1):
-		np.savetxt(f'{i:06d}.txt', world, fmt='%d')
+	for i in range(1, frames + 1):
 		update_world(rows, cols, world)
+		np.savetxt(f'{i:06d}.txt', world, fmt='%d')
 	print(f'Finished simulation in: {time.time() - start:6.2f} seconds')
 
 if __name__ == '__main__':

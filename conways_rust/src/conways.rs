@@ -29,7 +29,7 @@ fn init_world(rows:usize,cols:usize,world: &mut Array2D<i32>) {
     let mut rng = rand::thread_rng();
     for i in 0..rows {
         for j in 0..cols {
-            world[(i,j)] = rng.gen_range(0..2);
+            world[(i, j)] = rng.gen_range(0..2);
         }
     }
 }
@@ -40,24 +40,24 @@ fn update_world(rows:usize,cols:usize,world: &mut Array2D<i32>) {
     
     for i in  0..rows {
         for j in  0..cols {
-            let state = old_world[(i,j)];                 
-            let neis = old_world[((i + rows) % rows, (j + cols + 1) % cols)]
-                      +old_world[((i + rows) % rows, (j + cols - 1) % cols)]
-                      +old_world[((i + rows + 1) % rows, (j + cols) % cols)]
-                      +old_world[((i + rows - 1) % rows, (j + cols) % cols)]
-                      +old_world[((i + rows + 1) % rows, (j + cols + 1) % cols)]
-                      +old_world[((i + rows - 1) % rows, (j + cols - 1) % cols)]
-                      +old_world[((i + rows + 1) % rows, (j + cols - 1) % cols)]
-                      +old_world[((i + rows - 1) % rows, (j + cols + 1) % cols)];
+            let state = old_world[(i, j)];                 
+            let neis = old_world[((i).rem_euclid(rows), (j + 1).rem_euclid(cols))]
+                      +old_world[((i).rem_euclid(rows), (j - 1).rem_euclid(cols))]
+                      +old_world[((i + 1).rem_euclid(rows), (j).rem_euclid(cols))]
+                      +old_world[((i - 1).rem_euclid(rows), (j).rem_euclid(cols))]
+                      +old_world[((i + 1).rem_euclid(rows), (j + 1).rem_euclid(cols))]
+                      +old_world[((i - 1).rem_euclid(rows), (j - 1).rem_euclid(cols))]
+                      +old_world[((i + 1).rem_euclid(rows), (j - 1).rem_euclid(cols))]
+                      +old_world[((i - 1).rem_euclid(rows), (j + 1).rem_euclid(cols))];
             
             if state == 1 {
                 if neis != 2 && neis != 3 {
-                    world[(i,j)] = 0;
+                    world[(i, j)] = 0;
                 }
             }
             else {
                 if neis == 3 {
-                    world[(i,j)] = 1;
+                    world[(i, j)] = 1;
                 }  
             } 
         }
@@ -73,13 +73,16 @@ fn main() {
     let world = &mut Array2D::filled_with(0, rows, cols);
     init_world(rows, cols, world);
 
+    let name = format!("{:06}.txt", 0);
+    write_file(&name, rows, cols, world);
+
     println!("Started simulation");
     let now = Instant::now();
-    for frame in 0..frames + 1
+    for frame in 1..frames + 1
     {
+        update_world(rows, cols, world);
         let name = format!("{:06}.txt", frame);
         write_file(&name, rows, cols, world);
-        update_world(rows, cols, world);
     }
     let elapsed_time = now.elapsed();
     println!("Finished simulation in: {:6.2} seconds", 

@@ -64,12 +64,16 @@ function main() {
 
     init_world(rows, cols);
 
+    var name = `${0}.txt`.padStart(10, '0');
+    fs.writeFileSync(name, world.join('\n').replaceAll(',', ' '));
+
     console.log("Started simulation");
     var start = new Date().getTime();
-    for (let frame = 0; frame < frames + 1; frame++) {
-        var name = `${frame}.txt`.padStart(10,'0');
-        fs.writeFileSync(name, world.join('\n').replaceAll(',',' '));
+    for (let frame = 1; frame < frames + 1; frame++) {
         update_world(world);
+        name = `${frame}.txt`.padStart(10, '0');
+        fs.writeFileSync(name, world.join('\n').replaceAll(',', ' '));
+
     }
     var end = new Date().getTime();
     var time = (end - start) / 1000;

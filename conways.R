@@ -41,11 +41,13 @@ main <- function() {
     frames <- strtoi(args[3])
     world <- round(matrix(runif(rows * cols), rows, cols))
 
+    write(world, file = sprintf("%06d.txt", 0), ncolumns = cols)
+
     print("Started simulation")
     start_time <- Sys.time()
-    for (frame in 0:frames) {
-        write(world, file = sprintf("%06d.txt", frame), ncolumns = cols)
+    for (frame in 1:frames) {
         world <- update_world(rows, cols, world)
+        write(world, file = sprintf("%06d.txt", frame), ncolumns = cols)
     }
     td <- difftime(Sys.time(), start_time, units = "secs")
     sprintf("Finished simulation in: %6.2f seconds", td)
