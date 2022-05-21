@@ -8,7 +8,7 @@ update_world <- function(rows, cols, world) {
 
     for (i in  1:rows) {
         for (j in  1:cols) {
-            state <- old_world[i,j]
+            state <- old_world[i, j]
             neis <- old_world[(i - 1) %% rows + 1, j %% cols + 1] +
                     old_world[(i - 1) %% rows + 1, (j - 2) %% cols + 1] +
                     old_world[i %% rows + 1, (j - 1) %% cols + 1] +
